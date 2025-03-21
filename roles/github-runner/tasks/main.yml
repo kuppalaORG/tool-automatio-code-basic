@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for roles/github-runner
+
+- name: Debug task to print a message
+  debug:
+    msg: "This is a debug message for github-runner role"
