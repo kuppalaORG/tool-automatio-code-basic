@@ -25,8 +25,11 @@
 
 - name: Grab token
   ansible.builtin.shell: |
-    gh api   --method POST   -H "Accept: application/vnd.github+json"   -H "X-GitHub-Api-Version: 2022-11-28"   /orgs/kuppalaORG/actions/runners/registration-token | jq .token
+    /usr/bin/gh api --method POST -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" /orgs/kuppalaORG/actions/runners/registration-token | /usr/bin/jq .token
   register: out
+  become: yes
+  become_user: ec2-user
+
 
 - name: Print token
   ansible.builtin.debug:
