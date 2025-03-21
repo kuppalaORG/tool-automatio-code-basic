@@ -1,0 +1,12 @@
+name: provision-infra
+on: [push]
+jobs:
+  check-bats-version:
+    runs-on:
+      group: ubuntu-runners
+    steps:
+      - uses: actions/checkout@v4
+      - name: Terraform Init
+        run:  terraform init
+      - name:  Terraform Apply
+        run:  terraform apply -auto-approve
