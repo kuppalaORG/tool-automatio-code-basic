@@ -1,5 +1,5 @@
 name: provision-infra
-on: [push, workflow-dispatch]
+on: [push]
 jobs:
   Provision:
     runs-on: self-hosted
