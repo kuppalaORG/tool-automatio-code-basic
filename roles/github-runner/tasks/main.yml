@@ -1,6 +1,10 @@
 - name: SetUpPrompt
   ansible.builtin.shell: set-prompt github-runner
 
+#- name: Add Github runner user
+#  ansible.builtin.user:
+#    name: grunner
+
 
 - name: Create github directory
   ansible.builtin.file:
@@ -34,7 +38,13 @@
   ansible.builtin.debug:
     msg: " {{ out }} "
 
+- name: Install libicu dependencies
+  ansible.builtin.package:
+    name: libicu
+    state: latest
 
 - name: Configure Github Runner
-  ansible.builtin.shell: ./config.sh --url https://github.com/kuppalaORG --token {{ out.stdout }}
+  ansible.builtin.shell: ./config.sh --url https://github.com/kuppalaORG --token {{ out.stdout }} --runnergroup Default --name ec2 --labels rhel --work _work --replace
   become_user: ec2-user
+  args:
+    chdir: /actions-runner
