@@ -1,7 +1,24 @@
-#SPDX-License-Identifier: MIT-0
----
-# tasks file for roles/github-runner
+- name: SetUpPrompt
+  ansible.builtin.shell: set-prompt github-runner
 
-- name: Debug task to print a message
-  debug:
-    msg: "This is a debug message for github-runner role"
+
+- name: Create github directory
+  ansible.builtin.file:
+    path: /actions-runner
+    state: directory
+
+- name: Download and Extract Runner
+  ansible.builtin.unarchive:
+    src: https://github.com/actions/runner/releases/download/v2.322.0/actions-runner-linux-x64-2.322.0.tar.gz
+    dest: "/actions-runner"
+    remote_src: yes
+
+- name: Packages for the GitHub CLI
+  ansible.builtin.get_url:
+    url: https://cli.github.com/packages/rpm/gh-cli.repo
+    dest: /etc/yum.repos.d/gh-cli.repo
+
+- name: Install github cli
+  ansible.builtin.dnf:
+    name: gh
+    state: latest
