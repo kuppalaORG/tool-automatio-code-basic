@@ -33,4 +33,4 @@
 
 - name: Print token
   ansible.builtin.debug:
-    msg: " {{ out.stdout }} "
+    msg: " {{ out }} "
