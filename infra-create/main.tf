@@ -55,5 +55,5 @@ resource "aws_route53_record" "record-private" {
   name    = "${var.name}-internal"
   type    = "A"
   ttl     = 10
-  records = [aws_instance.tool.public_ip]
+  records = [aws_instance.tool.private_ip]
 }
