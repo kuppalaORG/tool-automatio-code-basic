@@ -1,12 +1,7 @@
 ---
 - name: Retrieve MySQL Secrets from Vault
   hosts: localhost
-  gather_facts: no
   tasks:
-    - name: Ensure the HashiCorp Vault collection is installed
-      ansible.builtin.ansible_galaxy_collection:
-        name: community.hashi_vault
-
     - name: Retrieve secrets from HashiCorp Vault
       ansible.builtin.debug:
         msg: >-
