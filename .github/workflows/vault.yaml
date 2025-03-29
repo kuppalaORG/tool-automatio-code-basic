@@ -9,8 +9,8 @@ jobs:
       - run: echo ${{ secrets.SSH_USER }}
       - run: echo ${{ secrets.VAULT_TOKEN }}
 
-      - name: Test Connection to Vault
-        run: curl -v http://vault-internal.codedeploywithbharath.tech/v1/sys/health
+#      - name: Test Connection to Vault
+#        run: curl -v http://vault-internal.codedeploywithbharath.tech/v1/sys/health
 
       - name: Run Your vault
         run: ansible-playbook -i vault-internal.codedeploywithbharath.tech, tool-setup.yml -e ansible_user=${{ secrets.SSH_USER }} -e ansible_password=${{ secrets.SSH_PASS }} -e tool_name=vault
