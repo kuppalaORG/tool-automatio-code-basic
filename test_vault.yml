@@ -2,12 +2,40 @@
 - name: Retrieve MySQL Secrets from Vault
   hosts: localhost
   tasks:
-    - name: Retrieve secrets from HashiCorp Vault
+    - name: Unseal Vault
+      uri:
+        url: "http://vault-internal.codedeploywithbharath.tech:8200/v1/sys/unseal"
+        method: POST
+        headers:
+          Content-Type: "application/json"
+        body: |
+          {
+            "key": "{{ secrets.VAULT_UNSEAL_KEY }}"
+          }
+        body_format: json
+        status_code: 200
+      register: unseal_result
+
+    # Check if Vault is already unsealed
+    - name: Check Vault status
+      uri:
+        url: "http://vault-internal.codedeploywithbharath.tech:8200/v1/sys/health"
+        method: GET
+        return_content: yes
+      register: vault_status
+
+    - name: Fail if Vault is still sealed
+      fail:
+        msg: "Vault is sealed even after attempting to unseal it."
+      when: vault_status.json.sealed
+
+    # Retrieve secrets from Vault
+    - name: Retrieve secrets from Vault
       ansible.builtin.debug:
         msg: >-
           {{
             lookup(
               'hashi_vault',
-              'secret=roboshop-dev/data/mysql token={{ vault_token }} url=http://vault-internal.codedeploywithbharath.tech:8200 validate_certs=false'
+              'secret=roboshop-dev/data/mysql token={{ secrets.VAULT_TOKEN }} url=http://vault-internal.codedeploywithbharath.tech:8200 validate_certs=false'
             )
           }}
