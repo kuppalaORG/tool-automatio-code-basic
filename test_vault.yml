@@ -10,7 +10,7 @@
           Content-Type: "application/json"
         body: |
           {
-            "key": "${{ secrets.VAULT_UNSEAL_KEY }}"
+            "key": "{{ secrets.VAULT_UNSEAL_KEY }}"
           }
         body_format: json
         status_code: 200
@@ -36,6 +36,6 @@
           {{
             lookup(
               'hashi_vault',
-              'secret=roboshop-dev/data/mysql token=${{ secrets.VAULT_TOKEN }} url=http://vault-internal.codedeploywithbharath.tech:8200 validate_certs=false'
+              'secret=roboshop-dev/data/mysql token={{ secrets.VAULT_TOKEN }} url=http://vault-internal.codedeploywithbharath.tech:8200 validate_certs=false'
             )
           }}
