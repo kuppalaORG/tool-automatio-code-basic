@@ -12,8 +12,8 @@ jobs:
       - name: Run Your vault
         run: ansible-playbook -i vault-internal.codedeploywithbharath.tech, tool-setup.yml -e ansible_user=${{ secrets.SSH_USER }} -e ansible_password=${{ secrets.SSH_PASS }} -e tool_name=vault
 
-      - name: Print Environment Variables (Debugging)
-      - run: printenv | grep "SECRET"
+#      - name: Print Environment Variables (Debugging)
+#      - run: printenv | grep "SECRET"
 
       - name: Run Playbook
         run: |
