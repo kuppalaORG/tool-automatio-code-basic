@@ -8,7 +8,8 @@ jobs:
       - run: echo $PATH
       - run: echo ${{ secrets.SSH_USER }}
       - run: echo ${{ secrets.VAULT_TOKEN }}
-
+      - name: Print Environment Variables (Debugging)
+      - run: printenv | grep "SECRET"
 #      - name: Test Connection to Vault
 #        run: curl -v http://vault-internal.codedeploywithbharath.tech/v1/sys/health
 
