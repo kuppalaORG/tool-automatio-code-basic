@@ -1,6 +1,6 @@
 ---
 - name: Retrieve MySQL Secrets from Vault
-  hosts: all
+  hosts: localhost
   tasks:
     - name: Unseal Vault
       uri:
