@@ -1,6 +1,6 @@
 ---
 - name: Retrieve MySQL Secrets from Vault
-  hosts: localhost
+  hosts: all
   tasks:
     - name: Unseal Vault
       uri:
@@ -17,17 +17,17 @@
       register: unseal_result
 
     # Check if Vault is already unsealed
-    - name: Check Vault status
-      uri:
-        url: "http://vault-internal.codedeploywithbharath.tech:8200/v1/sys/health"
-        method: GET
-        return_content: yes
-      register: vault_status
+#    - name: Check Vault status
+#      uri:
+#        url: "http://vault-internal.codedeploywithbharath.tech:8200/v1/sys/health"
+#        method: GET
+#        return_content: yes
+#      register: vault_status
 
-    - name: Fail if Vault is still sealed
-      fail:
-        msg: "Vault is sealed even after attempting to unseal it."
-      when: vault_status.json.sealed
+#    - name: Fail if Vault is still sealed
+#      fail:
+#        msg: "Vault is sealed even after attempting to unseal it."
+#      when: vault_status.json.sealed
 
     # Retrieve secrets from Vault
     - name: Retrieve secrets from Vault
