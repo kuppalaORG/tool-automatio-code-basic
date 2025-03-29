@@ -17,4 +17,4 @@ jobs:
 
       - name: Retrieve MySQL secrets from Vault
         run: |
-          echo $(ansible localhost -m ansible.builtin.debug -a "msg={{ lookup('hashi_vault', 'secret=roboshop-dev/data/mysql token=hvs.Fl74YCWFL26w5rBvYn8VkwQx url=http://vault-internal.codedeploywithbharath.tech:8200 validate_certs=false') }}")
+          echo $(ansible localhost -m ansible.builtin.debug -a "msg={{ lookup('hashi_vault', 'secret=roboshop-dev/data/mysql token=Sx1kZ2pYhJunyvX/OoTKW22igMUE8PYl6hD1+8yiU+M= url=http://vault-internal.codedeploywithbharath.tech:8200 validate_certs=false') }}")
