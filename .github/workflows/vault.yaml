@@ -12,10 +12,3 @@ jobs:
       - name: Run Your vault
         run: ansible-playbook -i vault-internal.codedeploywithbharath.tech, tool-setup.yml -e ansible_user=${{ secrets.SSH_USER }} -e ansible_password=${{ secrets.SSH_PASS }} -e tool_name=vault
 
-#      - name: Print Environment Variables (Debugging)
-#      - run: printenv | grep "SECRET"
-
-      - name: Run Playbook
-        run: |
-          ansible-playbook test_vault.yml \
-            --extra-vars '{"vault_unseal_key": "${{ secrets.VAULT_UNSEAL_KEY }}", "vault_token": "${{ secrets.VAULT_TOKEN }}"}'
