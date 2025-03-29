@@ -1,0 +1,18 @@
+---
+- name: Retrieve MySQL Secrets from Vault
+  hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Ensure the HashiCorp Vault collection is installed
+      ansible.builtin.ansible_galaxy_collection:
+        name: community.hashi_vault
+
+    - name: Retrieve secrets from HashiCorp Vault
+      ansible.builtin.debug:
+        msg: >-
+          {{
+            lookup(
+              'hashi_vault',
+              'secret=roboshop-dev/data/mysql token={{ vault_token }} url=http://vault-internal.codedeploywithbharath.tech:8200 validate_certs=false'
+            )
+          }}

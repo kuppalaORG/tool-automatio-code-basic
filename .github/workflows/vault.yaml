@@ -8,13 +8,9 @@ jobs:
       - run: echo $PATH
       - run: echo ${{ secrets.SSH_USER }}
       - run: echo ${{ secrets.VAULT_TOKEN }}
+
+      - name: Test Connection to Vault
+        run: curl -v http://vault-internal.codedeploywithbharath.tech/v1/sys/health
+
       - name: Run Your vault
         run: ansible-playbook -i vault-internal.codedeploywithbharath.tech, tool-setup.yml -e ansible_user=${{ secrets.SSH_USER }} -e ansible_password=${{ secrets.SSH_PASS }} -e tool_name=vault
-      - name: Install Required Ansible Dependencies
-        run: |
-          pip3.11 install hvac
-          ansible-galaxy collection install community.hashi_vault
-
-      - name: Retrieve MySQL secrets from Vault
-        run: |
-          echo $(ansible localhost -m ansible.builtin.debug -a "msg={{ lookup('hashi_vault', 'secret=roboshop-dev/data/mysql token=Sx1kZ2pYhJunyvX/OoTKW22igMUE8PYl6hD1+8yiU+M= url=http://vault-internal.codedeploywithbharath.tech:8200 validate_certs=false') }}")
